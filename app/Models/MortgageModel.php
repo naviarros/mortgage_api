@@ -10,7 +10,9 @@ class MortgageModel extends Model
     // use HasFactory;
     protected $table = 'mortgage_loans';
 
+    protected $primaryKey = "id";
+
     protected $fillables = ["loan_amount", "interest_rate", "loan_term", "payment_frequency"];
 
-
+    public $timestamps = false;
 }

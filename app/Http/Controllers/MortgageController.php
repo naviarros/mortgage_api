@@ -15,7 +15,8 @@ class MortgageController extends Controller
     public function index()
     {
         //
-        return view('partials.index');
+        $getMortgageLoans = MortgageModel::all();
+        return view('partials.index', compact('getMortgageLoans'));
     }
 
     /**
@@ -67,7 +68,6 @@ class MortgageController extends Controller
         // return redirect()->route('mortgage.index')->with('success', 'Mortgage loan data has been saved.');
         return response()->json([
             "success" => true,
-            "data" => $data,
             "server_response" => 'ok'
         ]);
     }
@@ -115,5 +115,13 @@ class MortgageController extends Controller
     public function destroy($id)
     {
         //
+        $deleteLoan = MortgageModel::find($id);
+        $deleteLoan->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => "Loan Deleted",
+            'server_response' => 'ok'
+        ])
     }
 }
