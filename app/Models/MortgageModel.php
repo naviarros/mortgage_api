@@ -8,11 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class MortgageModel extends Model
 {
     // use HasFactory;
-    protected $table = 'mortgage_loans';
+    protected $table = 'loan_amortization_schedule';
 
-    protected $primaryKey = "id";
-
-    protected $fillables = ["loan_amount", "interest_rate", "loan_term", "payment_frequency"];
+    protected $fillables = ["loan_amount", "interest_rate", "loan_term", "payment_frequency", "total_amount"];
 
     public $timestamps = false;
 }

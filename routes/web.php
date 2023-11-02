@@ -17,3 +17,9 @@ use App\Http\Controllers\MortgageController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix("mortgage")->group(function ($router) {
+    $router->get('/', [MortgageController::class, 'index']);
+    $router->get('/calculator', [MortgageController::class, 'create']);
+    $router->post('/loan', [MortgageController::class, 'store'])->name('mortgage.store');
+});
