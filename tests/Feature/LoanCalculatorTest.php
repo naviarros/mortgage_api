@@ -21,7 +21,7 @@ class LoanCalculatorTest extends TestCase
             'loan_term' => 10, // Loan term in years
         ];
 
-        $response = $this->post('/api/calculate-loan', $data);
+        $response = $this->post('/api/mortgage/loan', $data);
 
         $response->assertStatus(200)
             ->assertJson([

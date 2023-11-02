@@ -111,5 +111,13 @@ class MortgageController extends Controller
     public function destroy($id)
     {
         //
+        $deleteLoan = MortgageModel::find($id);
+        $deleteLoan->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => "Loan Deleted",
+            'server_response' => 'ok'
+        ])
     }
 }

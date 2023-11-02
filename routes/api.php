@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix("mortgage")->group(function ($router) {
     $router->get('/', [MortgageController::class, 'index']);
     $router->post('/loan', [MortgageController::class, 'store'])->name('mortgage.store');
+    $router->delete('/destroy', [MortgageController::class, 'destroy']);
 });
