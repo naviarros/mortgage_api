@@ -14,8 +14,8 @@ class MortgageController extends Controller
      */
     public function index()
     {
-        //
-        return view('partials.index');
+        $mortgage_loan_lists = MortgageModel::all()->toArray();
+        return view('partials.index', compact("mortgage_loan_lists"));
     }
 
     /**
@@ -26,6 +26,7 @@ class MortgageController extends Controller
     public function create()
     {
         //
+        return view('mortgage');
     }
 
     /**
@@ -49,14 +50,13 @@ class MortgageController extends Controller
 
         $monthlyInterestRate = ($request->get('interest_rate') / 12) / 100;
         $numberOfMonths = $request->get('loan_term') * 12;
-        $monthlyPayment = ($request->get('loan_amount') * $monthlyInterestRate) / (1 - (1 + $monthlyInterestRate)^(-$numberOfMonths));
+        $monthlyPayment = ($request->get('loan_amount') * $monthlyInterestRate) / (1 - pow(1 + $monthlyInterestRate, -$numberOfMonths));
 
         $mortgageLoan->loan_amount = $request->input('loan_amount') ;
         $mortgageLoan->interest_rate = $request->input('interest_rate');
         $mortgageLoan->loan_term = $request->input('loan_term');
         $mortgageLoan->payment_frequency = $request->input('payment_frequency');
         $mortgageLoan->total_amount = $monthlyPayment;
-        $mortgageLoan->date_created = now();
 
         // Perform any necessary calculations (e.g., monthly_payment, total_payments, total_interest)
 
@@ -65,11 +65,7 @@ class MortgageController extends Controller
 
         // Redirect the user to a success page or return a response
         // return redirect()->route('mortgage.index')->with('success', 'Mortgage loan data has been saved.');
-        return response()->json([
-            "success" => true,
-            "data" => $data,
-            "server_response" => 'ok'
-        ]);
+        return redirect()->back();
     }
 
     /**
